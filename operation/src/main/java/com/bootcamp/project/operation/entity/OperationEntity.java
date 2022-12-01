@@ -14,13 +14,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Document(collection = "Operation")
 public class OperationEntity {
-    @Id
-    private ObjectId id;
     private String operationNumber;
-    private String client;
+    private String clientDocumentNumber;
+    private String idProduct;
     private String operationType;
     private String accountNumber;
     private String creditNumber;
     private double amount;
-    private Date insert_date;
+    private Date createDate;
+    private Date modifyDate;
+
+    private String clientType;
+    private String productCode;
 }

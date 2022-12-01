@@ -13,14 +13,15 @@ public class OperationController {
     @Autowired
     OperationService operationService;
 
-    @GetMapping(value = "/FindOne/{operationNumber}")
-    public Mono<OperationEntity> Get_One(@PathVariable("operationNumber") String operationNumber){
-        return operationService.getOne(operationNumber);
-    }
+
     @GetMapping(value = "/FindAll")
     public Flux<OperationEntity> Get_All(){
 
         return operationService.getAll();
+    }
+    @GetMapping(value = "/FindOne/{operationNumber}")
+    public Mono<OperationEntity> Get_One(@PathVariable("operationNumber") String operationNumber){
+        return operationService.getOne(operationNumber);
     }
     @PostMapping(value = "/Save")
     public Mono<OperationEntity> Save(@RequestBody OperationEntity col){
@@ -35,16 +36,12 @@ public class OperationController {
     public Mono<Void> Delete(@PathVariable("operationNumber") String operationNumber){
         return operationService.delete(operationNumber);
     }
-    @GetMapping(value = "/getAllOperationsByClient/{client}")
-    public Flux<OperationEntity> getOperationsByClient(@PathVariable("client") String client){
-        return operationService.getOperationsByClient(client);
+    @GetMapping(value = "/GetByClientAndProduct/{clientDocumentNumber}/{productCode}")
+    public Flux<OperationEntity> getByClientAndProduct(@PathVariable("clientDocumentNumber") String clientDocumentNumber,@PathVariable("productCode") String productCode){
+        return operationService.getByClientAndProduct(clientDocumentNumber,productCode);
     }
-    @GetMapping(value = "/getCreditOperationsByClient/{client}/{creditNumber}")
-    public Flux<OperationEntity> getCreditOperationsByClient(@PathVariable("client") String client,@PathVariable("creditNumber") String creditNumber){
-        return operationService.getCreditOperationsByClient(client, creditNumber);
-    }
-    @GetMapping(value = "/getAccountOperationsByClient/{client}/{accountNumber}")
-    public Flux<OperationEntity> getAccountOperationsByClient(@PathVariable("client") String client,@PathVariable("accountNumber") String accountNumber){
-        return operationService.getAccountOperationsByClient(client,accountNumber);
+    @GetMapping(value = "/GetByClientAndProduct_Month/{clientDocumentNumber}/{productCode}")
+    public Flux<OperationEntity> getByClientAndProduct_Month(@PathVariable("clientDocumentNumber") String clientDocumentNumber,@PathVariable("productCode") String productCode){
+        return operationService.getByClientAndProduct_Month(clientDocumentNumber,productCode);
     }
 }
