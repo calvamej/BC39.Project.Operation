@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 
 @Service
@@ -59,13 +56,17 @@ public class OperationServiceImplementation implements OperationService{
 
     }
     @Override
-    public Flux<OperationEntity> getByClientAndProduct_Month(String clientDocumentNumber, String productCode)
+    public Flux<OperationEntity> getByAccount(String accountNumber)
     {
-        Instant instant = Instant.now();
-        return operationRepository.findAll().filter(x -> x.getClientDocumentNumber().equals(clientDocumentNumber)
-                        && x.getProductCode().equals(productCode)
-                && x.getCreateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue() == instant.atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue())
-                .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to the type of product this month")));
+        return operationRepository.findAll().filter(x -> x.getAccountNumber().equals(accountNumber))
+                .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that account")));
+
+    }
+    @Override
+    public Flux<OperationEntity> getByCredit(String creditNumber)
+    {
+        return operationRepository.findAll().filter(x -> x.getCreditNumber().equals(creditNumber))
+                .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
 
     }
 }

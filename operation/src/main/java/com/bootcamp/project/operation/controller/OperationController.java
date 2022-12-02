@@ -40,8 +40,12 @@ public class OperationController {
     public Flux<OperationEntity> getByClientAndProduct(@PathVariable("clientDocumentNumber") String clientDocumentNumber,@PathVariable("productCode") String productCode){
         return operationService.getByClientAndProduct(clientDocumentNumber,productCode);
     }
-    @GetMapping(value = "/GetByClientAndProduct_Month/{clientDocumentNumber}/{productCode}")
-    public Flux<OperationEntity> getByClientAndProduct_Month(@PathVariable("clientDocumentNumber") String clientDocumentNumber,@PathVariable("productCode") String productCode){
-        return operationService.getByClientAndProduct_Month(clientDocumentNumber,productCode);
+    @GetMapping(value = "/GetByAccount/{accountNumber}")
+    public Flux<OperationEntity> getByAccount(@PathVariable("accountNumber") String accountNumber){
+        return operationService.getByAccount(accountNumber);
+    }
+    @GetMapping(value = "/GetByCredit/{creditNumber}")
+    public Flux<OperationEntity> getByCredit(@PathVariable("creditNumber") String creditNumber){
+        return operationService.getByCredit(creditNumber);
     }
 }
