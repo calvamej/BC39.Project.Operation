@@ -65,6 +65,7 @@ public class OperationServiceImplementation implements OperationService{
     @Override
     public Flux<OperationEntity> getByCredit(String creditNumber)
     {
+        //get credit operations
         return operationRepository.findAll().filter(x -> x.getCreditNumber().equals(creditNumber))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
 
