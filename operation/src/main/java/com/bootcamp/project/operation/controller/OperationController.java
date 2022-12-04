@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping(value="/Operation")
 public class OperationController {
@@ -47,5 +49,9 @@ public class OperationController {
     @GetMapping(value = "/GetByCredit/{creditNumber}")
     public Flux<OperationEntity> getByCredit(@PathVariable("creditNumber") String creditNumber){
         return operationService.getByCredit(creditNumber);
+    }
+    @GetMapping(value = "/getCommissionsByProduct/{productCode}/{initialDate}/{finalDate}")
+    public Flux<OperationEntity> getCommissionsByProduct(@PathVariable("creditNumber") String productCode,@PathVariable("initialDate") Date initialDate,@PathVariable("finalDate") Date finalDate ){
+        return operationService.getCommissionsByProduct(productCode,initialDate,finalDate);
     }
 }

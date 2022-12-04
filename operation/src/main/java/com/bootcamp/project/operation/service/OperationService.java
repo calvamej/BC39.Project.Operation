@@ -4,6 +4,8 @@ import com.bootcamp.project.operation.entity.OperationEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 public interface OperationService {
 
     public Flux<OperationEntity> getAll();
@@ -15,5 +17,7 @@ public interface OperationService {
     public Flux<OperationEntity> getByClientAndProduct(String clientDocumentNumber, String productCode);
     public Flux<OperationEntity> getByAccount(String accountNumber);
     public Flux<OperationEntity> getByCredit(String creditNumber);
+
+    public Flux<OperationEntity> getCommissionsByProduct(String productCode, Date initialDate, Date finalDate);
 
 }

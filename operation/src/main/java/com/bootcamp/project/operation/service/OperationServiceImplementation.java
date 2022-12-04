@@ -70,4 +70,11 @@ public class OperationServiceImplementation implements OperationService{
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
 
     }
+    @Override
+    public Flux<OperationEntity> getCommissionsByProduct(String productCode, Date initialDate, Date finalDate)
+    {
+        return operationRepository.findAll().filter(x -> x.getOperationType().equals("Commission") && x.getProductCode().equals(productCode))
+                .filter(c -> c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
+                .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
+    }
 }
