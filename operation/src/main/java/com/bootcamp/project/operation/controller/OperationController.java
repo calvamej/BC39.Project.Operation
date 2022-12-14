@@ -54,4 +54,14 @@ public class OperationController {
     public Flux<OperationEntity> getCommissionsByProduct(@PathVariable("creditNumber") String productCode,@PathVariable("initialDate") Date initialDate,@PathVariable("finalDate") Date finalDate ){
         return operationService.getCommissionsByProduct(productCode,initialDate,finalDate);
     }
+//New Method: Obtiene los últimos 10 movimientos asociados a la tarjeta de débito proporcionada
+    @GetMapping(value = "/GetLast10ByDebitCard/{debitCardNumber}")
+    public Flux<OperationEntity> getLast10ByDebitCard(@PathVariable("debitCardNumber") String debitCardNumber){
+        return operationService.getLast10ByDebitCard(debitCardNumber);
+    }
+//New Method: Obtiene los últimos 10 movimientos asociados a la tarjeta de crédito proporcionada
+    @GetMapping(value = "/GetLast10ByCreditCard/{creditCardNumber}")
+    public Flux<OperationEntity> getLast10ByCreditCard(@PathVariable("creditCardNumber") String creditCardNumber){
+        return operationService.getLast10ByCreditCard(creditCardNumber);
+    }
 }

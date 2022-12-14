@@ -3,8 +3,6 @@ package com.bootcamp.project.operation.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -20,6 +18,8 @@ public class OperationEntity {
     private String operationType;
     private String accountNumber;
     private String creditNumber;
+    private String debitCardNumber;
+    private String creditCardNumber;
     private double amount;
     private Date createDate;
     private Date modifyDate;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Comparator;
 import java.util.Date;
 
 @Service
@@ -76,5 +77,21 @@ public class OperationServiceImplementation implements OperationService{
         return operationRepository.findAll().filter(x -> x.getOperationType().equals("Commission") && x.getProductCode().equals(productCode))
                 .filter(c -> c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
+    }
+    @Override
+    public Flux<OperationEntity> getLast10ByDebitCard(String debitCardNumber)
+    {
+        return operationRepository.findAll().filter(x -> x.getDebitCardNumber().equals("debitCardNumber"))
+                .sort(Comparator.comparing(OperationEntity::getCreateDate))
+                .takeLast(10)
+                .switchIfEmpty(Mono.error(new CustomNotFoundException("The debit card does not have operations")));
+
+    }
+    @Override
+    public Flux<OperationEntity> getLast10ByCreditCard(String creditCardNumber) {
+        return operationRepository.findAll().filter(x -> x.getCreditCardNumber().equals("creditCardNumber"))
+                .sort(Comparator.comparing(OperationEntity::getCreateDate))
+                .takeLast(10)
+                .switchIfEmpty(Mono.error(new CustomNotFoundException("The credit card does not have operations")));
     }
 }

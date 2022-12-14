@@ -19,5 +19,7 @@ public interface OperationService {
     public Flux<OperationEntity> getByCredit(String creditNumber);
 
     public Flux<OperationEntity> getCommissionsByProduct(String productCode, Date initialDate, Date finalDate);
+    public Flux<OperationEntity> getLast10ByDebitCard(String debitCardNumber);
+    public Flux<OperationEntity> getLast10ByCreditCard(String creditCardNumber);
 
 }
