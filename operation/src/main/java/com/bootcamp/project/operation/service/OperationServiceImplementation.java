@@ -53,6 +53,12 @@ public class OperationServiceImplementation implements OperationService{
                 });
     }
     @Override
+    public Mono<OperationEntity> addOperation(OperationEntity colEnt) {
+        colEnt.setCreateDate(new Date());
+        return getOne(colEnt.getOperationNumber())
+                .switchIfEmpty(operationRepository.save(colEnt));
+    }
+    @Override
     public Flux<OperationEntity> getByClientAndProduct(String clientDocumentNumber, String productCode)
     {
         return operationRepository.findAll().filter(x -> x.getClientDocumentNumber() != null && x.getClientDocumentNumber().equals(clientDocumentNumber)

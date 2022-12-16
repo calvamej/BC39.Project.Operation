@@ -42,6 +42,11 @@ public class OperationController {
     public Mono<Void> Delete(@PathVariable("operationNumber") String operationNumber){
         return operationService.delete(operationNumber);
     }
+    @PostMapping(value = "/AddOperation")
+    public Mono<OperationEntity> addOperation(@RequestBody OperationEntity col){
+
+        return operationService.addOperation(col);
+    }
     @GetMapping(value = "/GetByClientAndProduct/{clientDocumentNumber}/{productCode}")
     public Flux<OperationEntity> getByClientAndProduct(@PathVariable("clientDocumentNumber") String clientDocumentNumber,@PathVariable("productCode") String productCode){
         return operationService.getByClientAndProduct(clientDocumentNumber,productCode);

@@ -16,6 +16,7 @@ public interface OperationService {
     public Mono<OperationEntity> save(OperationEntity colEnt);
     public Mono<OperationEntity> update(String accountNumber, double amount);
     public Mono<Void> delete(String accountNumber);
+    public Mono<OperationEntity> addOperation(OperationEntity colEnt);
     public Flux<OperationEntity> getByClientAndProduct(String clientDocumentNumber, String productCode);
     public Flux<OperationEntity> getByAccount(String accountNumber);
     public Flux<OperationEntity> getByCredit(String creditNumber);
