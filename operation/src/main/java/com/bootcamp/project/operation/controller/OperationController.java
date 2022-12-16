@@ -1,14 +1,17 @@
 package com.bootcamp.project.operation.controller;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
+import com.bootcamp.project.operation.entity.OperationReportEntity;
 import com.bootcamp.project.operation.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(value="/Operation")
@@ -51,9 +54,9 @@ public class OperationController {
     public Flux<OperationEntity> getByCredit(@PathVariable("creditNumber") String creditNumber){
         return operationService.getByCredit(creditNumber);
     }
-    @GetMapping(value = "/GetCommissionsByProduct/{productCode}/{initialDate}/{finalDate}")
-    public Flux<OperationEntity> getCommissionsByProduct(@PathVariable("productCode") String productCode, @PathVariable("initialDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date initialDate, @PathVariable("finalDate") @DateTimeFormat(pattern = "dd-MM-yyyy")Date finalDate ){
-        return operationService.getCommissionsByProduct(productCode,initialDate,finalDate);
+    @GetMapping(value = "/GetCommissionsByProduct/{initialDate}/{finalDate}")
+    public Flux<OperationReportEntity> getCommissionsByProduct(@PathVariable("initialDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date initialDate, @PathVariable("finalDate") @DateTimeFormat(pattern = "dd-MM-yyyy")Date finalDate ){
+        return operationService.getCommissionsByProduct(initialDate,finalDate);
     }
     @GetMapping(value = "/GetLast10ByDebitCard/{debitCardNumber}")
     public Flux<OperationEntity> getLast10ByDebitCard(@PathVariable("debitCardNumber") String debitCardNumber){

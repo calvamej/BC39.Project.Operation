@@ -1,10 +1,13 @@
 package com.bootcamp.project.operation.service;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
+import com.bootcamp.project.operation.entity.OperationReportEntity;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.List;
 
 public interface OperationService {
 
@@ -18,7 +21,7 @@ public interface OperationService {
     public Flux<OperationEntity> getByAccount(String accountNumber);
     public Flux<OperationEntity> getByCredit(String creditNumber);
 
-    public Flux<OperationEntity> getCommissionsByProduct(String productCode, Date initialDate, Date finalDate);
+    public Flux<OperationReportEntity> getCommissionsByProduct(Date initialDate, Date finalDate);
     public Flux<OperationEntity> getLast10ByDebitCard(String debitCardNumber);
     public Flux<OperationEntity> getLast10ByCreditCard(String creditCardNumber);
 
