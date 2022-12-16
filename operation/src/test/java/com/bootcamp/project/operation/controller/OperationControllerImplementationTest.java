@@ -2,6 +2,8 @@ package com.bootcamp.project.operation.controller;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
 import com.bootcamp.project.operation.service.OperationService;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
+
+import java.util.Date;
+
 import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -60,7 +65,7 @@ public class OperationControllerImplementationTest {
     @Test
     public void getOne()
     {
-        OperationEntity OE = new OperationEntity("AAA",null, null, null, null, null, null, null, 0, null, null, null,null);
+        OperationEntity OE = new OperationEntity("AAA",null,null,null,null,null,null,null,null,0,null,null);
         Mono<OperationEntity> MTest = Mono.just(OE);
         when(operationService.getOne(any())).thenReturn(MTest);
         Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/FindOne/AAA")
@@ -77,8 +82,8 @@ public class OperationControllerImplementationTest {
     @Test
     public void getAll()
     {
-        OperationEntity OE = new OperationEntity("AAA",null, null, null, null, null, null, null, 0, null, null, null,null);
-        OperationEntity OE2 = new OperationEntity("BBB",null, null, null, null, null, null, null, 0, null, null, null,null);
+        OperationEntity OE = new OperationEntity("AAA",null,null,null,null,null,null,null,null,0,null,null);
+        OperationEntity OE2 = new OperationEntity("BBB",null,null,null,null,null,null,null,null,0,null,null);
         Flux<OperationEntity> MTest = Flux.just(OE,OE2);
         when(operationService.getAll()).thenReturn(MTest);
         Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/FindAll")
@@ -91,6 +96,78 @@ public class OperationControllerImplementationTest {
                 .expectSubscription()
                 .expectNext(OE)
                 .expectNext(OE2)
+                .verifyComplete();
+    }
+    @Test
+    public void getLast10ByDebitCard()
+    {
+        OperationEntity OE = new OperationEntity("AAA",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE2 = new OperationEntity("BBB",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE3 = new OperationEntity("CCC",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE4 = new OperationEntity("DDD",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE5 = new OperationEntity("EEE",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE6 = new OperationEntity("FFF",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE7 = new OperationEntity("GGG",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE8 = new OperationEntity("HHH",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE9 = new OperationEntity("III",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+        OperationEntity OE10 = new OperationEntity("JJJ",null, null, null, null, null, null, "1234", null, 0, new Date(),null);
+
+        Flux<OperationEntity> MTest = Flux.just(OE,OE2,OE3,OE4,OE5,OE6,OE7,OE8,OE9,OE10);
+        when(operationService.getLast10ByDebitCard(any())).thenReturn(MTest);
+        Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/GetLast10ByDebitCard/1234")
+                .exchange()
+                .expectStatus().isOk()
+                .returnResult(OperationEntity.class)
+                .getResponseBody();
+
+        StepVerifier.create(responseBody)
+                .expectSubscription()
+                .expectNext(OE)
+                .expectNext(OE2)
+                .expectNext(OE3)
+                .expectNext(OE4)
+                .expectNext(OE5)
+                .expectNext(OE6)
+                .expectNext(OE7)
+                .expectNext(OE8)
+                .expectNext(OE9)
+                .expectNext(OE10)
+                .verifyComplete();
+    }
+    @Test
+    public void getLast10ByCreditCard()
+    {
+        OperationEntity OE = new OperationEntity("AAA",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE2 = new OperationEntity("BBB",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE3 = new OperationEntity("CCC",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE4 = new OperationEntity("DDD",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE5 = new OperationEntity("EEE",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE6 = new OperationEntity("FFF",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE7 = new OperationEntity("GGG",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE8 = new OperationEntity("HHH",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE9 = new OperationEntity("III",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+        OperationEntity OE10 = new OperationEntity("JJJ",null, null, null, null, null, null, null, "1234", 0, new Date(),null);
+
+        Flux<OperationEntity> MTest = Flux.just(OE,OE2,OE3,OE4,OE5,OE6,OE7,OE8,OE9,OE10);
+        when(operationService.getLast10ByCreditCard(any())).thenReturn(MTest);
+        Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/GetLast10ByCreditCard/1234")
+                .exchange()
+                .expectStatus().isOk()
+                .returnResult(OperationEntity.class)
+                .getResponseBody();
+
+        StepVerifier.create(responseBody)
+                .expectSubscription()
+                .expectNext(OE)
+                .expectNext(OE2)
+                .expectNext(OE3)
+                .expectNext(OE4)
+                .expectNext(OE5)
+                .expectNext(OE6)
+                .expectNext(OE7)
+                .expectNext(OE8)
+                .expectNext(OE9)
+                .expectNext(OE10)
                 .verifyComplete();
     }
 }

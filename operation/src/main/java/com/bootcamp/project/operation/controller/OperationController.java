@@ -3,6 +3,7 @@ package com.bootcamp.project.operation.controller;
 import com.bootcamp.project.operation.entity.OperationEntity;
 import com.bootcamp.project.operation.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -50,16 +51,14 @@ public class OperationController {
     public Flux<OperationEntity> getByCredit(@PathVariable("creditNumber") String creditNumber){
         return operationService.getByCredit(creditNumber);
     }
-    @GetMapping(value = "/getCommissionsByProduct/{productCode}/{initialDate}/{finalDate}")
-    public Flux<OperationEntity> getCommissionsByProduct(@PathVariable("creditNumber") String productCode,@PathVariable("initialDate") Date initialDate,@PathVariable("finalDate") Date finalDate ){
+    @GetMapping(value = "/GetCommissionsByProduct/{productCode}/{initialDate}/{finalDate}")
+    public Flux<OperationEntity> getCommissionsByProduct(@PathVariable("productCode") String productCode, @PathVariable("initialDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date initialDate, @PathVariable("finalDate") @DateTimeFormat(pattern = "dd-MM-yyyy")Date finalDate ){
         return operationService.getCommissionsByProduct(productCode,initialDate,finalDate);
     }
-//New Method: Obtiene los últimos 10 movimientos asociados a la tarjeta de débito proporcionada
     @GetMapping(value = "/GetLast10ByDebitCard/{debitCardNumber}")
     public Flux<OperationEntity> getLast10ByDebitCard(@PathVariable("debitCardNumber") String debitCardNumber){
         return operationService.getLast10ByDebitCard(debitCardNumber);
     }
-//New Method: Obtiene los últimos 10 movimientos asociados a la tarjeta de crédito proporcionada
     @GetMapping(value = "/GetLast10ByCreditCard/{creditCardNumber}")
     public Flux<OperationEntity> getLast10ByCreditCard(@PathVariable("creditCardNumber") String creditCardNumber){
         return operationService.getLast10ByCreditCard(creditCardNumber);

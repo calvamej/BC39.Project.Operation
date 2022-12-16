@@ -24,10 +24,11 @@ public class OperationServiceImplementation implements OperationService{
     }
     @Override
     public Mono<OperationEntity> getOne(String operationNumber) {
-        return operationRepository.findAll().filter(x -> x.getOperationNumber().equals(operationNumber)).next();
+        return operationRepository.findAll().filter(x -> x.getOperationNumber() != null && x.getOperationNumber().equals(operationNumber)).next();
     }
     @Override
     public Mono<OperationEntity> save(OperationEntity colEnt) {
+        colEnt.setCreateDate(new Date());
         return operationRepository.save(colEnt);
     }
 
@@ -51,37 +52,37 @@ public class OperationServiceImplementation implements OperationService{
     @Override
     public Flux<OperationEntity> getByClientAndProduct(String clientDocumentNumber, String productCode)
     {
-        return operationRepository.findAll().filter(x -> x.getClientDocumentNumber().equals(clientDocumentNumber)
-                && x.getProductCode().equals(productCode))
+        return operationRepository.findAll().filter(x -> x.getClientDocumentNumber() != null && x.getClientDocumentNumber().equals(clientDocumentNumber)
+                && x.getProductCode() != null && x.getProductCode().equals(productCode))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to the type of product")));
 
     }
     @Override
     public Flux<OperationEntity> getByAccount(String accountNumber)
     {
-        return operationRepository.findAll().filter(x -> x.getAccountNumber().equals(accountNumber))
+        return operationRepository.findAll().filter(x -> x.getAccountNumber() != null && x.getAccountNumber().equals(accountNumber))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that account")));
 
     }
     @Override
     public Flux<OperationEntity> getByCredit(String creditNumber)
     {
-        //get credit operations
-        return operationRepository.findAll().filter(x -> x.getCreditNumber().equals(creditNumber))
+        return operationRepository.findAll().filter(x -> x.getCreditNumber() != null && x.getCreditNumber().equals(creditNumber))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
 
     }
     @Override
     public Flux<OperationEntity> getCommissionsByProduct(String productCode, Date initialDate, Date finalDate)
     {
-        return operationRepository.findAll().filter(x -> x.getOperationType().equals("Commission") && x.getProductCode().equals(productCode))
-                .filter(c -> c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
+        return operationRepository.findAll().filter(x -> x.getOperationType() != null && x.getOperationType().equals("Commission")
+                        && x.getProductCode() != null && x.getProductCode().equals(productCode))
+                .filter(c -> c.getCreateDate() != null && c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The client doesn't have operations related to that credit")));
     }
     @Override
     public Flux<OperationEntity> getLast10ByDebitCard(String debitCardNumber)
     {
-        return operationRepository.findAll().filter(x -> x.getDebitCardNumber().equals("debitCardNumber"))
+        return operationRepository.findAll().filter(x -> x.getDebitCardNumber() != null && x.getDebitCardNumber().equals(debitCardNumber))
                 .sort(Comparator.comparing(OperationEntity::getCreateDate))
                 .takeLast(10)
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The debit card does not have operations")));
@@ -89,7 +90,7 @@ public class OperationServiceImplementation implements OperationService{
     }
     @Override
     public Flux<OperationEntity> getLast10ByCreditCard(String creditCardNumber) {
-        return operationRepository.findAll().filter(x -> x.getCreditCardNumber().equals("creditCardNumber"))
+        return operationRepository.findAll().filter(x -> x.getCreditCardNumber() != null && x.getCreditCardNumber().equals(creditCardNumber))
                 .sort(Comparator.comparing(OperationEntity::getCreateDate))
                 .takeLast(10)
                 .switchIfEmpty(Mono.error(new CustomNotFoundException("The credit card does not have operations")));
