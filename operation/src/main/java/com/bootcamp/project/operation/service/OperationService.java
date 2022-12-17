@@ -1,13 +1,11 @@
 package com.bootcamp.project.operation.service;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
-import com.bootcamp.project.operation.entity.OperationReportEntity;
+import com.bootcamp.project.operation.entity.report.OperationReportEntity;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
-import java.util.List;
 
 public interface OperationService {
 

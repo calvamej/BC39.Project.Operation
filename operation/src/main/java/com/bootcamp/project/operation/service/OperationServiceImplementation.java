@@ -1,19 +1,17 @@
 package com.bootcamp.project.operation.service;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
-import com.bootcamp.project.operation.entity.OperationReportEntity;
+import com.bootcamp.project.operation.entity.report.OperationReportEntity;
 import com.bootcamp.project.operation.exception.CustomNotFoundException;
 import com.bootcamp.project.operation.repository.OperationRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class OperationServiceImplementation implements OperationService{

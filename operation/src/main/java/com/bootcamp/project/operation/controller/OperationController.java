@@ -1,17 +1,15 @@
 package com.bootcamp.project.operation.controller;
 
 import com.bootcamp.project.operation.entity.OperationEntity;
-import com.bootcamp.project.operation.entity.OperationReportEntity;
+import com.bootcamp.project.operation.entity.report.OperationReportEntity;
 import com.bootcamp.project.operation.service.OperationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.GroupedFlux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(value="/Operation")

@@ -1,5 +1,6 @@
-package com.bootcamp.project.operation.entity;
+package com.bootcamp.project.operation.entity.report;
 
+import com.bootcamp.project.operation.entity.OperationEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
