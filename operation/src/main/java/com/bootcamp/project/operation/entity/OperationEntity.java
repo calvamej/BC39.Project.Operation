@@ -26,6 +26,7 @@ public class OperationEntity {
     private String creditNumber;
     private String debitCardNumber;
     private String creditCardNumber;
+    private String operationMadeBy;
     private double amount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date createDate;
