@@ -79,9 +79,9 @@ public class OperationServiceImplementation implements OperationService{
 
     }
     @Override
-    public Flux<OperationReportEntity> getCommissionsByProduct(Date initialDate, Date finalDate)
+    public Flux<OperationReportEntity> getCommissionsByDates(Date initialDate, Date finalDate)
     {
-        return operationRepository.findAll().filter(x -> x.getOperationType() != null && x.getOperationType().equals("Commission"))
+        return operationRepository.findAll().filter(x -> x.getOperationType() != null && x.getOperationType().toUpperCase().equals("COMISSION"))
                 .filter(c -> c.getCreateDate() != null && c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
                 .groupBy(OperationEntity::getProductCode)
                 .flatMap(a -> a

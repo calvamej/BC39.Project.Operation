@@ -40,7 +40,7 @@ public class OperationController {
     public Mono<Void> Delete(@PathVariable("operationNumber") String operationNumber){
         return operationService.delete(operationNumber);
     }
-    @PostMapping(value = "/AddOperation")
+    @PostMapping(value = "/Add")
     public Mono<OperationEntity> addOperation(@RequestBody OperationEntity col){
 
         return operationService.addOperation(col);
@@ -57,9 +57,9 @@ public class OperationController {
     public Flux<OperationEntity> getByCredit(@PathVariable("creditNumber") String creditNumber){
         return operationService.getByCredit(creditNumber);
     }
-    @GetMapping(value = "/GetCommissionsByProduct/{initialDate}/{finalDate}")
-    public Flux<OperationReportEntity> getCommissionsByProduct(@PathVariable("initialDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date initialDate, @PathVariable("finalDate") @DateTimeFormat(pattern = "dd-MM-yyyy")Date finalDate ){
-        return operationService.getCommissionsByProduct(initialDate,finalDate);
+    @GetMapping(value = "/GetCommissionsByDates/{initialDate}/{finalDate}")
+    public Flux<OperationReportEntity> getCommissionsByDates(@PathVariable("initialDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date initialDate, @PathVariable("finalDate") @DateTimeFormat(pattern = "dd-MM-yyyy") Date finalDate ){
+        return operationService.getCommissionsByDates(initialDate,finalDate);
     }
     @GetMapping(value = "/GetLast10ByDebitCard/{debitCardNumber}")
     public Flux<OperationEntity> getLast10ByDebitCard(@PathVariable("debitCardNumber") String debitCardNumber){
