@@ -25,7 +25,7 @@ public class OperationServiceImplementation implements OperationService{
     }
     @Override
     public Mono<OperationEntity> getOne(String operationNumber) {
-        return operationRepository.findAll().filter(x -> x.getOperationNumber() != null && x.getOperationNumber().equals(operationNumber)).next();
+        return operationRepository.findAll().filter(x -> x.getId() != null && x.getId().equals(operationNumber)).next();
     }
     @Override
     public Mono<OperationEntity> save(OperationEntity colEnt) {
@@ -53,8 +53,7 @@ public class OperationServiceImplementation implements OperationService{
     @Override
     public Mono<OperationEntity> addOperation(OperationEntity colEnt) {
         colEnt.setCreateDate(new Date());
-        return getOne(colEnt.getOperationNumber())
-                .switchIfEmpty(operationRepository.save(colEnt));
+        return operationRepository.save(colEnt);
     }
     @Override
     public Flux<OperationEntity> getByClientAndProduct(String clientDocumentNumber, String productCode)
@@ -81,7 +80,7 @@ public class OperationServiceImplementation implements OperationService{
     @Override
     public Flux<OperationReportEntity> getCommissionsByDates(Date initialDate, Date finalDate)
     {
-        return operationRepository.findAll().filter(x -> x.getOperationType() != null && x.getOperationType().toUpperCase().equals("COMISSION"))
+        return operationRepository.findAll().filter(x -> x.getOperationType() != null && x.getOperationType().toUpperCase().equals("COMMISSION"))
                 .filter(c -> c.getCreateDate() != null && c.getCreateDate().after(initialDate) && c.getCreateDate().before(finalDate))
                 .groupBy(OperationEntity::getProductCode)
                 .flatMap(a -> a

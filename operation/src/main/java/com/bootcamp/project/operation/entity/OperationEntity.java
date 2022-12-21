@@ -17,16 +17,14 @@ import java.util.Date;
 public class OperationEntity {
     @Id
     private String id;
-    private String operationNumber;
     private String operationType;
     private String clientDocumentNumber;
-    private String clientType;
     private String productCode;
     private String accountNumber;
     private String creditNumber;
     private String debitCardNumber;
     private String creditCardNumber;
-    private String operationMadeBy;
+    private String operationBy;
     private double amount;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date createDate;
