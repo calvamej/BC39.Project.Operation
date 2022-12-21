@@ -65,7 +65,7 @@ public class OperationControllerImplementationTest {
     @Test
     public void getOne()
     {
-        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,null,null,0,null,null);
+        OperationEntity OE = new OperationEntity("AAA",null,null,null,null,null,null,null,null,0,null,null);
         Mono<OperationEntity> MTest = Mono.just(OE);
         when(operationService.getOne(any())).thenReturn(MTest);
         Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/FindOne/AAA")
@@ -76,14 +76,14 @@ public class OperationControllerImplementationTest {
 
         StepVerifier.create(responseBody)
                 .expectSubscription()
-                .expectNextMatches(p -> p.getOperationNumber().equals("AAA"))
+                .expectNextMatches(p -> p.getId().equals("AAA"))
                 .verifyComplete();
     }
     @Test
     public void getAll()
     {
-        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,null,null,0,null,null);
-        OperationEntity OE2 = new OperationEntity(null,"BBB",null,null,null,null,null,null,null,null,null,0,null,null);
+        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,0,null,null);
+        OperationEntity OE2 = new OperationEntity(null,"BBB",null,null,null,null,null,null,null,0,null,null);
         Flux<OperationEntity> MTest = Flux.just(OE,OE2);
         when(operationService.getAll()).thenReturn(MTest);
         Flux<OperationEntity> responseBody = webTestClient.get().uri("/Operation/FindAll")
@@ -101,16 +101,16 @@ public class OperationControllerImplementationTest {
     @Test
     public void getLast10ByDebitCard()
     {
-        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE2 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE3 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE4 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE5 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE6 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE7 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE8 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE9 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
-        OperationEntity OE10 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",null,null,0,null,null);
+        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE2 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE3 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE4 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE5 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE6 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE7 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE8 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE9 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE10 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
 
         Flux<OperationEntity> MTest = Flux.just(OE,OE2,OE3,OE4,OE5,OE6,OE7,OE8,OE9,OE10);
         when(operationService.getLast10ByDebitCard(any())).thenReturn(MTest);
@@ -137,16 +137,16 @@ public class OperationControllerImplementationTest {
     @Test
     public void getLast10ByCreditCard()
     {
-        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE2 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE3 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE4 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE5 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE6 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE7 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE8 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE9 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
-        OperationEntity OE10 = new OperationEntity(null,"AAA",null,null,null,null,null,null,null,"1234",null,0,null,null);
+        OperationEntity OE = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE2 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE3 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE4 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE5 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE6 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE7 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE8 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE9 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
+        OperationEntity OE10 = new OperationEntity(null,"AAA",null,null,null,null,null,null,"1234",0,null,null);
 
         Flux<OperationEntity> MTest = Flux.just(OE,OE2,OE3,OE4,OE5,OE6,OE7,OE8,OE9,OE10);
         when(operationService.getLast10ByCreditCard(any())).thenReturn(MTest);
